@@ -54,6 +54,14 @@ class UserRepositoryTest {
     }
 
     @Test
+    void shouldFindUserWithSpecifiedEmail() {
+        User persistedUser = entityManager.persist(user);
+        List<User> users = repository.findByFirstNameContainingOrLastNameContainingOrEmailContainingAllIgnoreCase(EMPTY_STRING, EMPTY_STRING, "john@domain.com" );
+
+        assertThat(users, hasSize(1));
+    }
+
+    @Test
     void shouldFindNoUsersIfRepositoryIsEmpty() {
 
         List<User> users = repository.findAll();
